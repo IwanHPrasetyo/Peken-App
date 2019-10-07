@@ -17,6 +17,10 @@
   color: white;
 }
 
+body{
+  overflow: hidden;
+}
+
 .App-link {
   color: #09d3ac;
 }
