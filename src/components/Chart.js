@@ -51,7 +51,7 @@ class Chart extends Component {
                   style={{ width: "50px" }}
                 />
                 <button
-                  onClick={console.log(item.count + 1)}
+                  //onClick={console.log(item.count + 1)}
                   type="button"
                   className="btn btn-primary"
                 >

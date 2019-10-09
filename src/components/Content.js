@@ -4,12 +4,14 @@ import Product from "./Product";
 import axios from "axios";
 import InputModal from "./InputModal";
 import Chart from "./Chart";
+import Report from "./Report";
 
 class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
+      checkOut: [],
       chartItem: [],
       totalPrice: 0,
       clicks: 0,
@@ -25,9 +27,6 @@ class Content extends Component {
 
   async componentDidMount() {
     await this.getAll();
-    console.log(this.state.data);
-
-    //console.log("componentDidMount", this.state.data);
   }
 
   handleAddToCart(e, item) {
@@ -35,7 +34,6 @@ class Content extends Component {
       const chartItem = state.chartItem;
       let productAlredyinChart = false;
       state.totalPrice = state.totalPrice + item.price;
-
       chartItem.forEach(data => {
         //console.log(data);
         if (data.id_product === item.id_product) {
@@ -51,7 +49,6 @@ class Content extends Component {
       localStorage.setItem("chartItem", JSON.stringify(chartItem));
       return chartItem;
     });
-    //console.log(data)
   }
 
   getAll = async () => {
@@ -62,7 +59,6 @@ class Content extends Component {
           data: result.data.data,
           pages: result.data.page
         });
-        //console.log(this.state.pages);
       })
       .catch(err => {
         console.log(err);
@@ -87,9 +83,9 @@ class Content extends Component {
   };
 
   handleClickNext = async () => {
-    var value = this.state.page;
+    let value = this.state.page;
     if (value >= this.state.pages) {
-      this.state.page = this.state.pages;
+      value = this.state.pages;
     } else {
       this.state.clicks = this.state.clicks + 3;
       this.state.page = this.state.page + 1;
@@ -108,7 +104,7 @@ class Content extends Component {
     }
   };
 
-  pigination = async e => {
+  pigination = async () => {
     //console.log(this.state.clicks);
     await axios
       .get(
@@ -124,6 +120,18 @@ class Content extends Component {
         console.log(err);
       });
   };
+  deleteCart() {
+    this.setState({ chartItem: [], totalPrice: 0 });
+  }
+  chackOut = async () => {
+    this.setState({ checkOut: this.state.chartItem });
+    await console.log(this.state.checkOut);
+  };
+
+  logOut() {
+    localStorage.removeItem("keyToken");
+    window.location.href = "./";
+  }
 
   orderBy = async e => {
     let order = e.target.value;
@@ -165,32 +173,49 @@ class Content extends Component {
                   </div>
 
                   <div className="text-center mt-3">
-                    <button class="btn btn-link">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      data-toggle="modal"
+                      data-target=".bd-example-modal-xl"
+                    >
                       <img
                         src="http://localhost:5000/public/images/menu.jpg"
                         style={{ width: "60px" }}
                         className="rounded"
-                        alt="..."
                       />
                     </button>
                   </div>
 
-                  <button
-                    class="btn btn-link"
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#inputModal"
-                  >
-                    <div className="text-center mt-3">
+                  <div className="text-center mt-3">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      data-toggle="modal"
+                      data-target="#inputModal"
+                    >
                       <img
                         src="http://localhost:5000/public/images/plus.png"
                         style={{ width: "60px" }}
-                        className="rounded ml-3"
-                        alt="..."
+                        className="rounded"
                       />
-                    </div>
-                  </button>
+                    </button>
+                  </div>
 
+                  <div className="text-center mt-3">
+                    <button
+                      class="btn btn-link"
+                      type="button"
+                      onClick={event => this.logOut()}
+                    >
+                      <img
+                        src="http://localhost:5000/public/images/logout.png"
+                        style={{ width: "60px" }}
+                        className="rounded"
+                      />
+                    </button>
+                  </div>
+                  <Report />
                   <InputModal />
                 </div>
               </div>
@@ -286,6 +311,7 @@ class Content extends Component {
                     style={{ width: "90%" }}
                     data-toggle="modal"
                     data-target="#exampleModal"
+                    onClick={event => this.chackOut()}
                   >
                     Checkout
                   </button>
@@ -294,6 +320,7 @@ class Content extends Component {
                     type="button"
                     class="btn btn-danger mt-2 ml-1 rounded"
                     style={{ width: "90%" }}
+                    onClick={event => this.deleteCart()}
                   >
                     Cancel
                   </button>
@@ -313,8 +340,14 @@ class Content extends Component {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
+                <img
+                  src="http://localhost:5000/public/images/shopping.jpg"
+                  style={{ width: "30px" }}
+                  className="rounded"
+                  alt="..."
+                />
                 <h5 className="modal-title" id="exampleModalLabel">
-                  Check Out
+                  Check Out List
                 </h5>
                 <button
                   type="button"
@@ -325,7 +358,39 @@ class Content extends Component {
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
-              <div className="modal-body"></div>
+              <div
+                className="modal-body"
+                style={{ height: "300px", overflowX: "hidden" }}
+              >
+                <table className="table table-borderless">
+                  <thead>
+                    <th
+                      className="text-center bg-danger text-white"
+                      colSpan="4"
+                    >
+                      Product List
+                    </th>
+                  </thead>
+                  {this.state.checkOut.map(item => {
+                    return (
+                      <tr className="bg-light text-dark">
+                        <td colSpan="2">{item.name}</td>
+                        <td>{item.count}</td>
+                        <td>€ {item.price}</td>
+                      </tr>
+                    );
+                  })}
+
+                  <tr border="1" className="bg-info text-white">
+                    <td className="font-weight-bold" scope="row" colSpan="3">
+                      Total Price
+                    </td>
+                    <td className="font-weight-bold bg-info text-white">
+                      € {this.state.totalPrice}
+                    </td>
+                  </tr>
+                </table>
+              </div>
               <div className="modal-footer text-center mr-3">
                 <button
                   type="button"
@@ -335,7 +400,7 @@ class Content extends Component {
                 >
                   Print
                 </button>
-                <h6>Or</h6>
+
                 <button
                   type="button"
                   className="btn btn-primary"

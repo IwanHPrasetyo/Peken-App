@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Register from "./Register";
-// import axios from "axios";
+import axios from "axios";
 
 class Login extends Component {
   constructor() {
@@ -11,18 +11,19 @@ class Login extends Component {
   handleSubmit = async event => {
     event.preventDefault();
     const data = new FormData(event.target);
+    axios
+      .post("http://localhost:5000/users/login", data)
 
-    fetch("http://localhost:5000/users/login", {
-      method: "POST",
-      body: data
-    })
       .then(res => {
-        console.log(res.data);
-
-        //window.location.href = "./home";
-        alert(
-          "<div className='alert alert-success' role='alert'>Sukses Login</div>"
-        );
+        console.log(res.data.success);
+        if (res.data.success === true) {
+          localStorage.setItem("keyToken", `Bearer ${res.data.token}`);
+          window.location.href = "./home";
+          alert("Sukses Login");
+        } else {
+          window.location.href = "./";
+          alert("Login Fail");
+        }
       })
       .catch(err => {
         console.log(err);
