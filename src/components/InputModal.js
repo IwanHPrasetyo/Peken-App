@@ -18,10 +18,25 @@ export default class InputModal extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
 
-    fetch("http://localhost:5000/products/add", {
-      method: "POST",
-      body: data
+    axios({
+      method: "post",
+      url: 'http://localhost:5000/products/add',
+      data: data,
+      config:{headers:{'Content-Type':'multypart/form-data', Authorization: localStorage.getItem('keyToken')}}
     });
+
+
+    // axios
+    //   .post(
+    //     "http://localhost:5000/products/add",
+    //     data
+    //     // , {
+    //     //   headers: {
+    //     //     Authorization: localStorage.getItem("keyToken")
+    //     //   }
+    //     // }
+    //   )
+    //   .then(res => console.log(data));
   }
 
   getCategory = async () => {
@@ -126,7 +141,11 @@ export default class InputModal extends Component {
                   </div>
                   <br />
                   <div class="form-group">
-                    <select class="form-control" id="exampleFormControlSelect1">
+                    <select
+                      class="form-control"
+                      name="category"
+                      id="exampleFormControlSelect1"
+                    >
                       {this.state.categories.map((item, index) => {
                         return <option value={item.name}>{item.name}</option>;
                       })}

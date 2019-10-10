@@ -7,13 +7,17 @@ class Report extends Component {
     super(props);
     this.state = {
       revenue: [],
+      chart: [],
+      table: [],
+      total_income: 0,
+      orderby: "day",
+      tittle: "dayname",
       total_year: [],
       total_week: []
     };
   }
   async componentDidMount() {
     await this.getRevenue();
-    console.log("componentDidMount", this.state.revenue);
   }
 
   getRevenue = async () => {
@@ -21,7 +25,8 @@ class Report extends Component {
       .get("http://localhost:5000/revenues")
       .then(result => {
         this.setState({
-          revenue: result.data.data
+          revenue: result.data.data,
+          table: result.data.data
         });
       })
       .catch(err => {
@@ -29,12 +34,87 @@ class Report extends Component {
       });
   };
 
+  getRevenueby = async event => {
+    let order = event.target.value;
+    console.log(order);
+    this.setState({
+      orderby: order,
+      tittle: order
+    });
+
+    axios
+      .get("http://localhost:5000/revenues/by?orderby= " + this.state.orderby)
+      .then(result => {
+        this.setState({
+          table: result.data.data
+        });
+        //console.log(this.state.table);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  orderchartBy = async event => {
+    let orderby = event.target.value;
+
+    this.setState({
+      tittle: orderby
+    });
+
+    axios
+      .get("http://localhost:5000/revenues/by?orderby= " + orderby)
+      .then(result => {
+        this.setState({
+          chart: result.data.data
+        });
+        // console.log(this.state.tittle);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
+    let incomes = [];
+    let day = [];
+    let week = ["week 1", "week 2", "week 3", "week 4"];
+    let month = [];
+    let year = [];
+    let total = [];
+    let label = [];
+    let total_bayar = 0;
+    console.log(this.state.tittle);
+
+    this.state.chart.forEach(item => {
+      incomes.push(item.income);
+      day.push(item.dayname);
+      month.push(item.monthname);
+      year.push(item.year);
+    });
+
+    this.state.revenue.forEach(item => {
+      total.push(item.amount);
+      total_bayar += item.amount;
+    });
+
+    console.log(this.state.tittle);
+
+    if (this.state.tittle === "day") {
+      label.push(day);
+    } else if (this.state.tittle === "week") {
+      label.push(week);
+    } else if (this.state.tittle === "month") {
+      label.push(month);
+    } else if (this.state.tittle === "year") {
+      label.push(year);
+    }
+
     const data = {
-      labels: ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007"],
+      labels: label[0],
       datasets: [
         {
-          label: "This Monthly",
+          label: "This " + this.state.tittle,
           fill: false,
           lineTension: 0.1,
           backgroundColor: "rgba(75,192,192,1)",
@@ -52,10 +132,10 @@ class Report extends Component {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [65, 59, 80, 65, 59, 80, 65, 59]
+          data: incomes
         },
         {
-          label: "Last Monthly",
+          label: "Last " + this.state.tittle,
           fill: false,
           lineTension: 0.1,
           backgroundColor: "rgba(127, 63, 191,1)",
@@ -73,7 +153,7 @@ class Report extends Component {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [80, 100, 80, 40, 59, 90, 65, 80]
+          data: [10, 60, 20]
         }
       ]
     };
@@ -106,7 +186,12 @@ class Report extends Component {
                     data-dismiss="modal"
                     aria-label="Close"
                   >
-                    <span aria-hidden="true">X</span>
+                    <img
+                      src="http://localhost:5000/public/images/close2.png"
+                      style={{ width: "60px" }}
+                      className="rounded"
+                      alt=""
+                    />
                   </button>
                 </nav>
               </div>
@@ -144,7 +229,7 @@ class Report extends Component {
                   >
                     <div className="card-body">
                       <p class="card-text">This Year Income</p>
-                      <h5 className="card-title">€ 10000</h5>
+                      <h5 className="card-title">€ {total_bayar}</h5>
                       <p class="card-text">+10% Last Year</p>
                     </div>
                   </div>
@@ -152,12 +237,28 @@ class Report extends Component {
               </div>
               <div className="row">
                 <div className="col-11 ml-5 mt-4 bg-light shadow">
-                  <h2>Revenue</h2>
+                  <div className="row mt-4">
+                    <div className="col-6">
+                      <h2 className="ml-2">Revenue</h2>
+                    </div>
+                    <div className="col-6">
+                      <select
+                        className="form-control"
+                        id="exampleFormControlSelect1"
+                        style={{ width: "200px", marginLeft: "60%" }}
+                        onChange={this.orderchartBy}
+                      >
+                        <option value="day">Daily</option>
+                        <option value="week">Weekly</option>
+                        <option value="month">Mounth</option>
+                      </select>
+                    </div>
+                  </div>
                   <Line data={data} />
                 </div>
               </div>
               <div className="row">
-                <div className="col-11 ml-5 mt-5 mb-5 bg-light shadow rounded">
+                <div className="col-11 ml-5 mt-5 mb-5 bg-light shadow rounded ">
                   <table class="table">
                     <thead>
                       <tr>
@@ -176,11 +277,11 @@ class Report extends Component {
                                 className="form-control mt-0"
                                 id="exampleFormControlSelect1"
                                 style={{ width: "200px" }}
-                                onChange={this.orderBy}
+                                onChange={this.getRevenueby}
                               >
-                                <option value="Daily">Daily</option>
-                                <option value="Weekly">Weekly</option>
-                                <option value="Mounth">Mounth</option>
+                                <option value="day">Daily</option>
+                                <option value="week">Weekly</option>
+                                <option value="month">Mounth</option>
                               </select>
                             </div>
                           </div>
@@ -195,7 +296,7 @@ class Report extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.revenue.map((item, index) => {
+                      {this.state.table.map((item, index) => {
                         return (
                           <tr>
                             <th scope="row"># {item.invoices}</th>

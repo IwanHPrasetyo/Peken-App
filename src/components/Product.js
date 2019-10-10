@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import UpdateModal from "./UpdateModal";
+import axios from "axios";
 
 class Product extends Component {
   constructor(props) {
@@ -15,11 +16,11 @@ class Product extends Component {
   }
 
   deleteProduct = async data => {
-    //console.log(data);
-
-    fetch("http://localhost:5000/products/delete/?id_product=" + data, {
-      method: "DELETE"
-    });
+    console.log(data);
+    //data.preventDefault();
+    axios
+      .delete("http://localhost:5000/products/delete/?id_product=" + data)
+      .then(res => console.log(res.data));
   };
 
   render() {

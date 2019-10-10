@@ -15,9 +15,11 @@ class Login extends Component {
       .post("http://localhost:5000/users/login", data)
 
       .then(res => {
-        console.log(res.data.success);
+        //console.log(res.data);
+
         if (res.data.success === true) {
           localStorage.setItem("keyToken", `Bearer ${res.data.token}`);
+          localStorage.setItem("email", `${res.data.email}`);
           window.location.href = "./home";
           alert("Sukses Login");
         } else {

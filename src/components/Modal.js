@@ -1,24 +1,17 @@
 import React, { Component } from "react";
 
 export default class Modal extends Component {
-  constructor(){
+  constructor() {
     super();
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
 
-    fetch("http://localhost:5000/products/add",
-    {method : "POST",
-    body : data
-    });
-
-
+    fetch("http://localhost:5000/products/add", { method: "POST", body: data });
   }
-
-
   render() {
     return (
       <div>
@@ -64,11 +57,21 @@ export default class Modal extends Component {
 
                   <div>
                     <div className="custom-file">
-                      <input type="file" className="custom-file-input" id="pict" name="pict" aria-describedby="inputGroupFileAddon01" />
-                      <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
+                      <input
+                        type="file"
+                        className="custom-file-input"
+                        id="pict"
+                        name="pict"
+                        aria-describedby="inputGroupFileAddon01"
+                      />
+                      <label
+                        className="custom-file-label"
+                        htmlFor="inputGroupFile01"
+                      >
+                        Choose file
+                      </label>
                     </div>
                   </div>
-
 
                   <br />
                   <label htmlFor="category" className="sr-only">
@@ -108,7 +111,10 @@ export default class Modal extends Component {
                     // autofocus
                   />
                   <br />
-                  <button className="btn btn-lg btn-info btn-block" id="btnSeccion">
+                  <button
+                    className="btn btn-lg btn-info btn-block"
+                    id="btnSeccion"
+                  >
                     Add Data
                   </button>
                 </form>
@@ -116,7 +122,6 @@ export default class Modal extends Component {
             </div>
           </div>
         </div>
-
       </div>
     );
   }

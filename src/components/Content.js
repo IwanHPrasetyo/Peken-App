@@ -35,7 +35,6 @@ class Content extends Component {
       let productAlredyinChart = false;
       state.totalPrice = state.totalPrice + item.price;
       chartItem.forEach(data => {
-        //console.log(data);
         if (data.id_product === item.id_product) {
           productAlredyinChart = true;
           data.count += 1;
@@ -123,15 +122,28 @@ class Content extends Component {
   deleteCart() {
     this.setState({ chartItem: [], totalPrice: 0 });
   }
-  chackOut = async () => {
+  chackOut = () => {
     this.setState({ checkOut: this.state.chartItem });
-    await console.log(this.state.checkOut);
   };
 
   logOut() {
     localStorage.removeItem("keyToken");
+    localStorage.removeItem("email");
     window.location.href = "./";
   }
+
+  buy = async event => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    await axios
+      .post("http://localhost:5000/products/reduce", data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   orderBy = async e => {
     let order = e.target.value;
@@ -151,6 +163,7 @@ class Content extends Component {
   };
 
   render() {
+    let emailbuyer = localStorage.getItem("email");
     return (
       <div>
         <div className="shadow-sm p-0 m-0 bg-white rounded">
@@ -182,6 +195,7 @@ class Content extends Component {
                       <img
                         src="http://localhost:5000/public/images/menu.jpg"
                         style={{ width: "60px" }}
+                        alt=""
                         className="rounded"
                       />
                     </button>
@@ -193,11 +207,13 @@ class Content extends Component {
                       type="button"
                       data-toggle="modal"
                       data-target="#inputModal"
+                      alt=""
                     >
                       <img
                         src="http://localhost:5000/public/images/plus.png"
                         style={{ width: "60px" }}
                         className="rounded"
+                        alt=""
                       />
                     </button>
                   </div>
@@ -207,11 +223,13 @@ class Content extends Component {
                       class="btn btn-link"
                       type="button"
                       onClick={event => this.logOut()}
+                      alt=""
                     >
                       <img
                         src="http://localhost:5000/public/images/logout.png"
                         style={{ width: "60px" }}
                         className="rounded"
+                        alt=""
                       />
                     </button>
                   </div>
@@ -305,13 +323,14 @@ class Content extends Component {
                 </div>
                 <div className="text-center">
                   <h6 className="mt-2">Total : € {this.state.totalPrice}</h6>
+
                   <button
                     type="button"
                     class="btn btn-primary mt-4 ml-1 rounded"
                     style={{ width: "90%" }}
                     data-toggle="modal"
                     data-target="#exampleModal"
-                    onClick={event => this.chackOut()}
+                    onClick={() => this.chackOut()}
                   >
                     Checkout
                   </button>
@@ -382,9 +401,9 @@ class Content extends Component {
                   })}
 
                   <tr border="1" className="bg-info text-white">
-                    <td className="font-weight-bold" scope="row" colSpan="3">
+                    <th className="font-weight-bold" scope="row" colSpan="3">
                       Total Price
-                    </td>
+                    </th>
                     <td className="font-weight-bold bg-info text-white">
                       € {this.state.totalPrice}
                     </td>
@@ -392,22 +411,56 @@ class Content extends Component {
                 </table>
               </div>
               <div className="modal-footer text-center mr-3">
-                <button
-                  type="button"
-                  className="btn btn-info"
-                  style={{ width: "200px" }}
-                  data-dismiss="modal"
-                >
-                  Print
-                </button>
+                <form onSubmit={this.buy}>
+                  <input hidden name="email" type="text" value={emailbuyer} />
+                  <input
+                    hidden
+                    name="total_price"
+                    type="text"
+                    value={this.state.totalPrice}
+                  />
 
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  style={{ width: "200px" }}
-                >
-                  Send Mail
-                </button>
+                  {this.state.checkOut.map(item => {
+                    return (
+                      <div>
+                        <input
+                          hidden
+                          name="name"
+                          type="text"
+                          value={item.name}
+                        />
+                        <input
+                          hidden
+                          name="qty"
+                          type="text"
+                          value={item.count}
+                        />
+                        <input
+                          hidden
+                          name="price"
+                          type="text"
+                          value={item.price}
+                        />
+                      </div>
+                    );
+                  })}
+
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ width: "200px" }}
+                  >
+                    Buy
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    style={{ width: "200px" }}
+                    data-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                </form>
               </div>
             </div>
           </div>
