@@ -9,7 +9,13 @@ class Report extends Component {
       revenue: [],
       chart: [],
       table: [],
-      total_income: 0,
+      daylast: 0,
+      daynow: 0,
+      weeklast: 0,
+      weeknow: 0,
+      yearlast: 0,
+      yearnow: 0,
+      total_income: [],
       orderby: "day",
       tittle: "dayname",
       total_year: [],
@@ -18,6 +24,7 @@ class Report extends Component {
   }
   async componentDidMount() {
     await this.getRevenue();
+    await this.getIncome();
   }
 
   getRevenue = async () => {
@@ -34,10 +41,28 @@ class Report extends Component {
       });
   };
 
+  getIncome = async () => {
+    await axios
+      .get("http://localhost:5000/revenues/income")
+      .then(result => {
+        this.setState({
+          total_income: result.data.data[0],
+          daylast: result.data.data[0].daylast,
+          daynow: result.data.data[0].daynow,
+          weeklast: result.data.data[0].lastweek,
+          weeknow: result.data.data[0].weeknow,
+          yearlast: result.data.data[0].yearlast,
+          yearnow: result.data.data[0].yearnow
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    console.log(this.state.total_income);
+  };
+
   getRevenueby = async event => {
     let by = event.target.value;
-    //console.log(by);
-
     this.setState({
       orderby: by
     });
@@ -75,6 +100,24 @@ class Report extends Component {
   };
 
   render() {
+    let growday =
+      (
+        ((this.state.daynow - this.state.daylast) / this.state.daylast) *
+        100
+      ).toFixed(0) + "%";
+
+    let groworder =
+      (
+        ((this.state.weeknow - this.state.weeklast) / this.state.weeklast) *
+        100
+      ).toFixed(0) + "%";
+
+    let growyear =
+      (
+        ((this.state.yearnow - this.state.yearlast) / this.state.yearlast) *
+        100
+      ).toFixed(0) + "%";
+
     let incomes = [];
     let day = [];
     let monthtitle = ["week 1", "week 2", "week 3", "week 4"];
@@ -106,18 +149,12 @@ class Report extends Component {
     let year = [];
     let total = [];
     let label = [];
-    let total_bayar = 0;
 
     this.state.chart.forEach(item => {
       incomes.push(item.income);
       day.push(item.dayname);
       month.push(item.monthname);
       year.push(item.year);
-    });
-
-    this.state.revenue.forEach(item => {
-      total.push(item.amount);
-      total_bayar += item.amount;
     });
 
     if (this.state.tittle === "day") {
@@ -224,8 +261,10 @@ class Report extends Component {
                   >
                     <div className="card-body">
                       <p class="card-text">Today's Income</p>
-                      <h5 className="card-title">€ 100</h5>
-                      <p class="card-text">+20% Yesterday</p>
+                      <h5 className="card-title">
+                        € {this.state.total_income.daynow}
+                      </h5>
+                      <p class="card-text">+{growday}</p>
                     </div>
                   </div>
                 </div>
@@ -237,8 +276,10 @@ class Report extends Component {
                   >
                     <div className="card-body">
                       <p class="card-text">Order</p>
-                      <h5 className="card-title">3270</h5>
-                      <p class="card-text">+5% Last Week</p>
+                      <h5 className="card-title">
+                        {this.state.total_income.weeknow}
+                      </h5>
+                      <p class="card-text">+{groworder}</p>
                     </div>
                   </div>
                 </div>
@@ -250,8 +291,10 @@ class Report extends Component {
                   >
                     <div className="card-body">
                       <p class="card-text">This Year Income</p>
-                      <h5 className="card-title">€ {total_bayar}</h5>
-                      <p class="card-text">+10% Last Year</p>
+                      <h5 className="card-title">
+                        € {this.state.total_income.yearnow}
+                      </h5>
+                      <p class="card-text">+{growyear}</p>
                     </div>
                   </div>
                 </div>
@@ -330,7 +373,7 @@ class Report extends Component {
                             <td>{item.user}</td>
                             <td>{item.date}</td>
                             <td>{item.order}</td>
-                            <td>{item.amount}</td>
+                            <td>€ {item.amount}</td>
                           </tr>
                         );
                       })}
