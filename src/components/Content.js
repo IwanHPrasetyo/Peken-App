@@ -5,10 +5,12 @@ import axios from "axios";
 import InputModal from "./InputModal";
 import Chart from "./Chart";
 import Report from "./Report";
+import { connect } from "react-redux";
+import { getAll } from "../publics/actions/producs";
 
 class Content extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       data: [],
       checkOut: [],
@@ -27,6 +29,7 @@ class Content extends Component {
 
   async componentDidMount() {
     await this.getAll();
+    // console.log(this.props);
   }
 
   handleAddToCart(e, item) {
@@ -50,19 +53,29 @@ class Content extends Component {
     });
   }
 
-  getAll = async () => {
-    await axios
-      .get("http://localhost:5000/products?limit=" + this.state.limit)
-      .then(result => {
-        this.setState({
-          data: result.data.data,
-          pages: result.data.page
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+  // getAll = async () => {
+  //   await axios
+  //     .get("http://localhost:5000/products?limit=" + this.state.limit)
+  //     .then(result => {
+  //       this.setState({
+  //         data: result.data.data,
+  //         pages: result.data.page
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
+
+  async getAll() {
+    const fetch = await getAll(this.state.limit);
+    this.props.dispatch(fetch);
+    // console.log(this.props.products.productsList);
+    this.setState({
+      data: this.props.products.productsList,
+      pages: this.props.products.pages
+    });
+  }
 
   searchName = async e => {
     let search = e.target.value;
@@ -298,6 +311,7 @@ class Content extends Component {
                 </nav>
 
                 <div className="row ml-5">
+                  {/* {console.log(this.state.data)} */}
                   {this.state.data.map(item => {
                     return (
                       <Product
@@ -469,4 +483,13 @@ class Content extends Component {
     );
   }
 }
-export default Content;
+
+const mapStateToProps = state => {
+  //console.log(state.productList);
+  return {
+    products: state.productList
+  };
+};
+
+// export default Content;
+export default connect(mapStateToProps)(Content);

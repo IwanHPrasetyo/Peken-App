@@ -78,8 +78,32 @@ class Report extends Component {
   render() {
     let incomes = [];
     let day = [];
-    let week = ["week 1", "week 2", "week 3", "week 4"];
+    let monthtitle = ["week 1", "week 2", "week 3", "week 4"];
+    let weektitle = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
     let month = [];
+    let yeartitle = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "March",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
     let year = [];
     let total = [];
     let label = [];
@@ -103,11 +127,11 @@ class Report extends Component {
     if (this.state.tittle === "day") {
       label.push(day);
     } else if (this.state.tittle === "week") {
-      label.push(week);
+      label.push(weektitle);
     } else if (this.state.tittle === "month") {
-      label.push(month);
+      label.push(monthtitle);
     } else if (this.state.tittle === "year") {
-      label.push(year);
+      label.push(yeartitle);
     }
 
     const data = {
@@ -133,28 +157,29 @@ class Report extends Component {
           pointRadius: 1,
           pointHitRadius: 10,
           data: incomes
-        },
-        {
-          label: "Last " + this.state.tittle,
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: "rgba(127, 63, 191,1)",
-          borderColor: "rgba(127, 63, 191,1)",
-          borderCapStyle: "butt",
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: "miter",
-          pointBorderColor: "rgba(75,192,192,1)",
-          pointBackgroundColor: "#fff",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(75,192,192,1)",
-          pointHoverBorderColor: "rgba(220,220,220,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          data: [10, 60, 20]
         }
+        // ,
+        // {
+        //   label: "Last " + this.state.tittle,
+        //   fill: false,
+        //   lineTension: 0.1,
+        //   backgroundColor: "rgba(127, 63, 191,1)",
+        //   borderColor: "rgba(127, 63, 191,1)",
+        //   borderCapStyle: "butt",
+        //   borderDash: [],
+        //   borderDashOffset: 0.0,
+        //   borderJoinStyle: "miter",
+        //   pointBorderColor: "rgba(75,192,192,1)",
+        //   pointBackgroundColor: "#fff",
+        //   pointBorderWidth: 1,
+        //   pointHoverRadius: 5,
+        //   pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        //   pointHoverBorderColor: "rgba(220,220,220,1)",
+        //   pointHoverBorderWidth: 2,
+        //   pointRadius: 1,
+        //   pointHitRadius: 10,
+        //   data: [10, 60, 20]
+        // }
       ]
     };
 
@@ -251,6 +276,7 @@ class Report extends Component {
                         <option value="day">Daily</option>
                         <option value="week">Weekly</option>
                         <option value="month">Mounth</option>
+                        <option value="year">Year</option>
                       </select>
                     </div>
                   </div>
