@@ -35,20 +35,20 @@ class Report extends Component {
   };
 
   getRevenueby = async event => {
-    let order = event.target.value;
-    console.log(order);
+    let by = event.target.value;
+    //console.log(by);
+
     this.setState({
-      orderby: order,
-      tittle: order
+      orderby: by
     });
 
     axios
-      .get("http://localhost:5000/revenues/by?orderby= " + this.state.orderby)
+      .get("http://localhost:5000/revenues/order?by=" + by)
       .then(result => {
+        console.log(result);
         this.setState({
           table: result.data.data
         });
-        //console.log(this.state.table);
       })
       .catch(err => {
         console.log(err);
@@ -68,7 +68,6 @@ class Report extends Component {
         this.setState({
           chart: result.data.data
         });
-        // console.log(this.state.tittle);
       })
       .catch(err => {
         console.log(err);
@@ -108,7 +107,6 @@ class Report extends Component {
     let total = [];
     let label = [];
     let total_bayar = 0;
-    console.log(this.state.tittle);
 
     this.state.chart.forEach(item => {
       incomes.push(item.income);
@@ -121,8 +119,6 @@ class Report extends Component {
       total.push(item.amount);
       total_bayar += item.amount;
     });
-
-    console.log(this.state.tittle);
 
     if (this.state.tittle === "day") {
       label.push(day);
@@ -267,17 +263,19 @@ class Report extends Component {
                       <h2 className="ml-2">Revenue</h2>
                     </div>
                     <div className="col-6">
-                      <select
-                        className="form-control"
-                        id="exampleFormControlSelect1"
-                        style={{ width: "200px", marginLeft: "60%" }}
-                        onChange={this.orderchartBy}
-                      >
-                        <option value="day">Daily</option>
-                        <option value="week">Weekly</option>
-                        <option value="month">Mounth</option>
-                        <option value="year">Year</option>
-                      </select>
+                      <form>
+                        <select
+                          className="form-control"
+                          id="exampleFormControlSelect1"
+                          style={{ width: "200px", marginLeft: "60%" }}
+                          onChange={this.orderchartBy}
+                        >
+                          <option value="day">Daily</option>
+                          <option value="week">Weekly</option>
+                          <option value="month">Mounth</option>
+                          <option value="year">Year</option>
+                        </select>
+                      </form>
                     </div>
                   </div>
                   <Line data={data} />
@@ -299,16 +297,19 @@ class Report extends Component {
                               className="col-md-12"
                               style={{ marginLeft: "500px" }}
                             >
-                              <select
-                                className="form-control mt-0"
-                                id="exampleFormControlSelect1"
-                                style={{ width: "200px" }}
-                                onChange={this.getRevenueby}
-                              >
-                                <option value="day">Daily</option>
-                                <option value="week">Weekly</option>
-                                <option value="month">Mounth</option>
-                              </select>
+                              <form>
+                                <select
+                                  className="form-control mt-0"
+                                  id="exampleFormControlSelect1"
+                                  style={{ width: "200px" }}
+                                  onChange={this.getRevenueby}
+                                >
+                                  <option value="day">Daily</option>
+                                  {/* <option value="week">Weekly</option> */}
+                                  <option value="month">Month</option>
+                                  <option value="year">Year</option>
+                                </select>
+                              </form>
                             </div>
                           </div>
                         </th>
