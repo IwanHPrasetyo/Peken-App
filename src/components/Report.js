@@ -162,9 +162,9 @@ class Report extends Component {
     } else if (this.state.tittle === "week") {
       label.push(weektitle);
     } else if (this.state.tittle === "month") {
-      label.push(monthtitle);
+      label.push(month);
     } else if (this.state.tittle === "year") {
-      label.push(yeartitle);
+      label.push(year);
     }
 
     const data = {
@@ -371,8 +371,8 @@ class Report extends Component {
                           <tr>
                             <th scope="row"># {item.invoices}</th>
                             <td>{item.user}</td>
-                            <td>{item.date}</td>
-                            <td>{item.order}</td>
+                            <td>{item.date.substr(0, 10)}</td>
+                            <td>{item.dataorder}</td>
                             <td>€ {item.amount}</td>
                           </tr>
                         );
