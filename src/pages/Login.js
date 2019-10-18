@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Register from "./Register";
 import axios from "axios";
+import Http from "../Http/Http";
 
 class Login extends Component {
   constructor() {
@@ -12,7 +13,7 @@ class Login extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
     axios
-      .post("http://localhost:5000/users/login", data)
+      .post("http://3.80.248.213:5000/users/login", data)
 
       .then(res => {
         //console.log(res.data);
@@ -51,7 +52,9 @@ class Login extends Component {
                 >
                   <img
                     className="mb-4"
-                    src="http://localhost:5000/public/images/carrot-icon.jpeg"
+                    src={
+                      "http://3.80.248.213:5000/public/images/carrot-icon.jpeg"
+                    }
                     alt="img"
                     style={{ width: "72px", height: "72px" }}
                   />

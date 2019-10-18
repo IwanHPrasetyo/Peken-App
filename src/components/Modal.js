@@ -10,7 +10,10 @@ export default class Modal extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
 
-    fetch("http://localhost:5000/products/add", { method: "POST", body: data });
+    fetch("http://3.80.248.213:5000/products/add", {
+      method: "POST",
+      body: data
+    });
   }
   render() {
     return (

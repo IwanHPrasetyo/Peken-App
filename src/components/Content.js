@@ -81,7 +81,7 @@ class Content extends Component {
     let search = e.target.value;
     await axios
       .get(
-        "http://localhost:5000/products?name=" +
+        "http://3.80.248.213:5000/products?name=" +
           search +
           "&limit=" +
           this.state.limit
@@ -120,7 +120,7 @@ class Content extends Component {
     //console.log(this.state.clicks);
     await axios
       .get(
-        "http://localhost:5000/products?page=" +
+        "http://3.80.248.213:5000/products?page=" +
           this.state.clicks +
           "&limit=" +
           this.state.limit
@@ -149,7 +149,7 @@ class Content extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
     await axios
-      .post("http://localhost:5000/products/reduce", data)
+      .post("http://3.80.248.213:5000/products/reduce", data)
       .then(res => {
         console.log(res);
       })
@@ -162,7 +162,7 @@ class Content extends Component {
     let order = e.target.value;
     await axios
       .get(
-        "http://localhost:5000/products?sortBy=" +
+        "http://3.80.248.213:5000/products?sortBy=" +
           order +
           "&limit=" +
           this.state.limit
@@ -190,7 +190,7 @@ class Content extends Component {
                   <div className="text-center mt-3">
                     <button class="btn btn-link">
                       <img
-                        src="http://localhost:5000/public/images/i.png"
+                        src={"http://3.80.248.213:5000/public/images/i.png"}
                         style={{ width: "60px" }}
                         className="rounded"
                         alt="..."
@@ -206,7 +206,7 @@ class Content extends Component {
                       data-target=".bd-example-modal-xl"
                     >
                       <img
-                        src="http://localhost:5000/public/images/menu.jpg"
+                        src={"http://3.80.248.213:5000/public/images/menu.jpg"}
                         style={{ width: "60px" }}
                         alt=""
                         className="rounded"
@@ -223,7 +223,7 @@ class Content extends Component {
                       alt=""
                     >
                       <img
-                        src="http://localhost:5000/public/images/plus.png"
+                        src={"http://3.80.248.213:5000/public/images/plus.png"}
                         style={{ width: "60px" }}
                         className="rounded"
                         alt=""
@@ -239,7 +239,9 @@ class Content extends Component {
                       alt=""
                     >
                       <img
-                        src="http://localhost:5000/public/images/logout.png"
+                        src={
+                          "http://3.80.248.213:5000/public/images/logout.png"
+                        }
                         style={{ width: "60px" }}
                         className="rounded"
                         alt=""
@@ -374,7 +376,7 @@ class Content extends Component {
             <div className="modal-content">
               <div className="modal-header">
                 <img
-                  src="http://localhost:5000/public/images/shopping.jpg"
+                  src={"http://3.80.248.213:5000/public/images/shopping.jpg"}
                   style={{ width: "30px" }}
                   className="rounded"
                   alt="..."

@@ -1,25 +1,11 @@
 import React, { Component } from "react";
 
 export default class UpdateModal extends Component {
-//   constructor() {
-//     super();
-//    // this.AddUpdate = this.AddUpdate.bind(this);
-//   }
+  getUpdate = async data => {
+    const update = data.props;
 
-//   AddUpdate(event) {
-//     event.preventDefault();
-//     const data = new FormData(event.target);
-
-//     fetch("http://localhost:5000/products/add", { method: "POST", body: data });
-//   }
-
-getUpdate= async(data)=>{
-
-    const update = data.props
-
-    console.log(update)
-
-  }
+    console.log(update);
+  };
 
   render() {
     return (
@@ -35,14 +21,17 @@ getUpdate= async(data)=>{
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header text-center">
-              <div className="text-center mr-2 " style={{marginLeft:"160px"}}>
-                <img
-                  src="http://localhost:5000/public/images/edit.png"
-                  style={{ width: "30px" }}
-                  className="rounded"
-                  alt="..."
-                />
-              </div>
+                <div
+                  className="text-center mr-2 "
+                  style={{ marginLeft: "160px" }}
+                >
+                  <img
+                    src={"http://3.80.248.213:5000/public/images/edit.png"}
+                    style={{ width: "30px" }}
+                    className="rounded"
+                    alt="..."
+                  />
+                </div>
                 <h5 className="modal-title" id="updateModal" name="updateModal">
                   Update Data
                 </h5>

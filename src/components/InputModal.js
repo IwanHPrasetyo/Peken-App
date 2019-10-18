@@ -20,11 +20,15 @@ export default class InputModal extends Component {
 
     axios({
       method: "post",
-      url: 'http://localhost:5000/products/add',
+      url: "http://3.80.248.213:5000/products/add",
       data: data,
-      config:{headers:{'Content-Type':'multypart/form-data', Authorization: localStorage.getItem('keyToken')}}
+      config: {
+        headers: {
+          "Content-Type": "multypart/form-data",
+          Authorization: localStorage.getItem("keyToken")
+        }
+      }
     });
-
 
     // axios
     //   .post(
@@ -41,7 +45,7 @@ export default class InputModal extends Component {
 
   getCategory = async () => {
     await axios
-      .get("http://localhost:5000/categories")
+      .get("http://3.80.248.213:5000/categories")
       .then(result => {
         this.setState({
           categories: result.data.data
@@ -71,7 +75,7 @@ export default class InputModal extends Component {
                   style={{ marginLeft: "160px" }}
                 >
                   <img
-                    src="http://localhost:5000/public/images/plus.png"
+                    src={"http://3.80.248.213:5000/public/images/plus.png"}
                     style={{ width: "30px" }}
                     className="rounded"
                     alt="..."

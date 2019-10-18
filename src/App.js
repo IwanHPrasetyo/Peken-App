@@ -4,10 +4,8 @@ import "../node_modules/bootstrap/dist/js/bootstrap.min.js";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import "./App.css";
-// import Content from "./components/Content";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import { Provider } from "react-redux";
-// import store from "./publics/store";
+require("dotenv/config");
 
 export default class App extends Component {
   render() {

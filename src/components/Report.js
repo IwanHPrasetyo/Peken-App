@@ -29,7 +29,7 @@ class Report extends Component {
 
   getRevenue = async () => {
     await axios
-      .get("http://localhost:5000/revenues")
+      .get("http://3.80.248.213:5000/revenues")
       .then(result => {
         this.setState({
           revenue: result.data.data,
@@ -43,7 +43,7 @@ class Report extends Component {
 
   getIncome = async () => {
     await axios
-      .get("http://localhost:5000/revenues/income")
+      .get("http://3.80.248.213:5000/revenues/income")
       .then(result => {
         this.setState({
           total_income: result.data.data[0],
@@ -68,7 +68,7 @@ class Report extends Component {
     });
 
     axios
-      .get("http://localhost:5000/revenues/order?by=" + by)
+      .get("http://3.80.248.213:5000/revenues/order?by=" + by)
       .then(result => {
         console.log(result);
         this.setState({
@@ -88,7 +88,7 @@ class Report extends Component {
     });
 
     axios
-      .get("http://localhost:5000/revenues/by?orderby= " + orderby)
+      .get("http://3.80.248.213:5000/revenues/by?orderby=" + orderby)
       .then(result => {
         this.setState({
           chart: result.data.data
@@ -147,20 +147,22 @@ class Report extends Component {
       "December"
     ];
     let year = [];
-    let total = [];
+    let week = [];
     let label = [];
 
+    console.log(this.state.chart);
     this.state.chart.forEach(item => {
       incomes.push(item.income);
       day.push(item.dayname);
       month.push(item.monthname);
+      week.push(item.week);
       year.push(item.year);
     });
 
     if (this.state.tittle === "day") {
       label.push(day);
     } else if (this.state.tittle === "week") {
-      label.push(weektitle);
+      label.push(week);
     } else if (this.state.tittle === "month") {
       label.push(month);
     } else if (this.state.tittle === "year") {
@@ -171,8 +173,8 @@ class Report extends Component {
       labels: label[0],
       datasets: [
         {
-          label: "This " + this.state.tittle,
-          fill: false,
+          label: "Income of " + this.state.tittle,
+          fill: true,
           lineTension: 0.1,
           backgroundColor: "rgba(75,192,192,1)",
           borderColor: "rgba(75,192,192,1)",
@@ -245,7 +247,7 @@ class Report extends Component {
                     aria-label="Close"
                   >
                     <img
-                      src="http://localhost:5000/public/images/close2.png"
+                      src={"http://3.80.248.213:5000/public/images/close2.png"}
                       style={{ width: "60px" }}
                       className="rounded"
                       alt=""
@@ -264,7 +266,7 @@ class Report extends Component {
                       <h5 className="card-title">
                         € {this.state.total_income.daynow}
                       </h5>
-                      <p class="card-text">+{growday}</p>
+                      <p class="card-text">{growday}</p>
                     </div>
                   </div>
                 </div>
@@ -366,7 +368,7 @@ class Report extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.table.map((item, index) => {
+                      {this.state.table.map(item => {
                         return (
                           <tr>
                             <th scope="row"># {item.invoices}</th>

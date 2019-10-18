@@ -20,7 +20,7 @@ class Chart extends Component {
         {chartItem.map(item => (
           <div className="media bg-white m-2 shadow rounded">
             <img
-              src={"http://localhost:5000/public/images/" + item.picture}
+              src={"http://3.80.248.213:5000/public/images/" + item.picture}
               class="ml-2 mr-2 mt-3 shadow-sm rounded"
               alt="..."
               style={{ width: "120px" }}

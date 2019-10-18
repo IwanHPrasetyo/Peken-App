@@ -19,7 +19,7 @@ class Product extends Component {
     console.log(data);
     //data.preventDefault();
     axios
-      .delete("http://localhost:5000/products/delete/?id_product=" + data)
+      .delete("http://3.80.248.213:5000/products/delete/?id_product=" + data)
       .then(res => console.log(res.data));
   };
 
@@ -36,7 +36,7 @@ class Product extends Component {
               >
                 <div className="text-center mt-4">
                   <img
-                    src="http://localhost:5000/public/images/delete.png"
+                    src={"http://3.80.248.213:5000/public/images/delete.png"}
                     style={{ width: "30px", marginTop: "-25px" }}
                     className="rounded"
                     alt="..."
@@ -58,7 +58,7 @@ class Product extends Component {
                   style={{ marginLeft: "190px", marginTop: "-35px" }}
                 >
                   <img
-                    src="http://localhost:5000/public/images/edit.png"
+                    src={"http://3.80.248.213:5000/public/images/edit.png"}
                     style={{ width: "30px" }}
                     className="rounded"
                     alt="..."
@@ -70,7 +70,9 @@ class Product extends Component {
             </div>
 
             <img
-              src={"http://localhost:5000/public/images/" + this.props.picture}
+              src={
+                "http://3.80.248.213:5000/public/images/" + this.props.picture
+              }
               className="card-img-top p-3 img-fluid"
               style={{ height: "182px" }}
               alt="..."
