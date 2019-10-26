@@ -33,6 +33,10 @@ $ npm install
 
 ![image](https://user-images.githubusercontent.com/55027286/67617953-c9305b00-f812-11e9-9928-1624bbe42328.png)
 
+### Add Product
+
+![image](https://user-images.githubusercontent.com/55027286/67618161-db5fc880-f815-11e9-8009-d7d7dc1341a0.png)
+
 ### Home Screen Website
 
 ![image](https://user-images.githubusercontent.com/55027286/67617989-2c21f200-f813-11e9-9dab-56fb18ad6b1a.png)
