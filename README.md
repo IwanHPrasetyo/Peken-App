@@ -43,6 +43,5 @@ $ npm install
 
 ### Income and Chart
 
-![image](https://user-images.githubusercontent.com/55027286/67618092-9b4c1600-f814-11e9-8186-e78b6b6170ab.png)
-
 ![image](https://user-images.githubusercontent.com/55027286/67618128-32b16900-f815-11e9-8664-8b7cf65c8381.png)
+![image](https://user-images.githubusercontent.com/55027286/67618146-773d0480-f815-11e9-82a0-ccb2c97d0d7c.png)
