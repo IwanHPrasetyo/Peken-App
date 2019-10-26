@@ -15,10 +15,7 @@ Clone or download this repository, then open the directory in your terminal. ins
 
 ### How To Use
 
-```java
-class HelloWorld{
-    public static void main(String[] argumen){
-        System.out.println("Hello World!");
-    }
-}
+```
+$ git clone https://github.com/IwanHPrasetyo/Peken-App.git
+$ npm install
 ```
