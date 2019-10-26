@@ -40,3 +40,10 @@ $ npm install
 ### Checkout Product
 
 ![image](https://user-images.githubusercontent.com/55027286/67618017-74d9ab00-f813-11e9-96bd-dd44eefd8a48.png)
+
+### Income and Chart
+
+![image](https://user-images.githubusercontent.com/55027286/67618092-9b4c1600-f814-11e9-8186-e78b6b6170ab.png)
+![image](https://user-images.githubusercontent.com/55027286/67618108-cf273b80-f814-11e9-8a00-75dd3a3f1e19.png)
+![image](https://user-images.githubusercontent.com/55027286/67618113-ecf4a080-f814-11e9-9cd5-2d8868a565d8.png)
+
