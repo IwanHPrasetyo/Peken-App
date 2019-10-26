@@ -36,3 +36,7 @@ $ npm install
 ### Home Screen Website
 
 ![image](https://user-images.githubusercontent.com/55027286/67617989-2c21f200-f813-11e9-9dab-56fb18ad6b1a.png)
+
+### Checkout Product
+
+![image](https://user-images.githubusercontent.com/55027286/67618017-74d9ab00-f813-11e9-96bd-dd44eefd8a48.png)
