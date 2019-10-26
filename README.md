@@ -1,6 +1,6 @@
 ## Website Peken App
 
-Peken App meruapakan aplikasi untuk penjualan sayuran berbasisi website dimana pengguna dapat melakukan pemebelian di mana saja
+Peken App is an application for selling vegetables based on websites where users can buy anywhere
 
 ### Requirment
 
@@ -8,3 +8,17 @@ Peken App meruapakan aplikasi untuk penjualan sayuran berbasisi website dimana p
 * ReactJs
 * Redux
 
+### How To Use
+
+Clone or download this repository, then open the directory in your terminal. install all the dependencies by run the npm install.
+
+
+### How To Use
+
+```java
+class HelloWorld{
+    public static void main(String[] argumen){
+        System.out.println("Hello World!");
+    }
+}
+```
