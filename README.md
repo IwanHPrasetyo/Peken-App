@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="360" height="200" src="https://www.techaltum.com/img/react-js.jpg">
+  <img width="460" height="200" src="https://www.techaltum.com/img/react-js.jpg">
 </p>
 
 ## Website Peken App
