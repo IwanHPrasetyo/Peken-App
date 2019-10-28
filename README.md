@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" height="300" src="https://icons-for-free.com/iconfiles/png/512/logo+react+react+js+icon-1320184811840217251.png">
+  <img width="200" height="200" src="https://icons-for-free.com/iconfiles/png/512/logo+react+react+js+icon-1320184811840217251.png">
   <img width="460" height="200" src="https://www.techaltum.com/img/react-js.jpg">
 </p>
 
