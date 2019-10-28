@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="360" height="200" src="https://www.techaltum.com/img/react-js.jpg">
+</p>
+
 ## Website Peken App
 
 Peken App is an application for selling vegetables based on websites where users can buy anywhere
