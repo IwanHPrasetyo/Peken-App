@@ -1,5 +1,6 @@
 <p align="center">
-  <img width="400" height="400" src="https://www.restapiexample.com/wp-content/uploads/2017/09/nodejs-mysql-express.png">
+  <img width="200" height="200" src="https://icons-for-free.com/iconfiles/png/512/logo+react+react+js+icon-1320184811840217251.png">
+  <img width="460" height="200" src="https://www.techaltum.com/img/react-js.jpg">
 </p>
 
 ## Website Peken App
