@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import axios from "axios";
 export default class InputModal extends Component {
@@ -20,7 +21,7 @@ export default class InputModal extends Component {
 
     axios({
       method: "post",
-      url: "http://3.80.248.213:5000/products/add",
+      url: "https://pekenbackend.herokuapp.com/products/add",
       data: data,
       config: {
         headers: {
@@ -45,7 +46,7 @@ export default class InputModal extends Component {
 
   getCategory = async () => {
     await axios
-      .get("http://3.80.248.213:5000/categories")
+      .get("https://pekenbackend.herokuapp.com/categories")
       .then(result => {
         this.setState({
           categories: result.data.data
@@ -75,7 +76,7 @@ export default class InputModal extends Component {
                   style={{ marginLeft: "160px" }}
                 >
                   <img
-                    src={"http://3.80.248.213:5000/public/images/plus.png"}
+                    src={"https://pekenbackend.herokuapp.com/public/images/plus.png"}
                     style={{ width: "30px" }}
                     className="rounded"
                     alt="..."

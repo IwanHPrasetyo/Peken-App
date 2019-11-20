@@ -53,7 +53,7 @@ class Login extends Component {
                   <img
                     className="mb-4"
                     src={
-                      "http://3.80.248.213:5000/public/images/carrot-icon.jpeg"
+                      "https://pekenbackend.herokuapp.com/public/images/carrot-icon.jpeg"
                     }
                     alt="img"
                     style={{ width: "72px", height: "72px" }}

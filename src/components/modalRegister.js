@@ -11,7 +11,7 @@ export default class InputModal extends Component {
         event.preventDefault();
         const data = new FormData(event.target);
     
-        fetch("localhost:5000/users/register",
+        fetch("https://pekenbackend.herokuapp.com/users/register",
         {method : "POST",
         body : data
         });

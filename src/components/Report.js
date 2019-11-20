@@ -29,7 +29,7 @@ class Report extends Component {
 
   getRevenue = async () => {
     await axios
-      .get("http://3.80.248.213:5000/revenues")
+      .get("https://pekenbackend.herokuapp.com/revenues")
       .then(result => {
         this.setState({
           revenue: result.data.data,
@@ -43,7 +43,7 @@ class Report extends Component {
 
   getIncome = async () => {
     await axios
-      .get("http://3.80.248.213:5000/revenues/income")
+      .get("https://pekenbackend.herokuapp.com/revenues/income")
       .then(result => {
         this.setState({
           total_income: result.data.data[0],
@@ -68,7 +68,7 @@ class Report extends Component {
     });
 
     axios
-      .get("http://3.80.248.213:5000/revenues/order?by=" + by)
+      .get("https://pekenbackend.herokuapp.com/revenues/order?by=" + by)
       .then(result => {
         console.log(result);
         this.setState({
@@ -88,7 +88,7 @@ class Report extends Component {
     });
 
     axios
-      .get("http://3.80.248.213:5000/revenues/by?orderby=" + orderby)
+      .get("https://pekenbackend.herokuapp.com/revenues/by?orderby=" + orderby)
       .then(result => {
         this.setState({
           chart: result.data.data
@@ -247,7 +247,7 @@ class Report extends Component {
                     aria-label="Close"
                   >
                     <img
-                      src={"http://3.80.248.213:5000/public/images/close2.png"}
+                      src={"https://pekenbackend.herokuapp.com/public/images/close2.png"}
                       style={{ width: "60px" }}
                       className="rounded"
                       alt=""

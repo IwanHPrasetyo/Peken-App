@@ -10,7 +10,7 @@ export default class Register extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
 
-    fetch("http://3.80.248.213:5000/users/register", {
+    fetch("https://pekenbackend.herokuapp.com/users/register", {
       method: "POST",
       body: data
     });

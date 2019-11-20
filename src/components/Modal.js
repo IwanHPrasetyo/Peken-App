@@ -10,7 +10,7 @@ export default class Modal extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
 
-    fetch("http://3.80.248.213:5000/products/add", {
+    fetch("https://pekenbackend.herokuapp.com/products/add", {
       method: "POST",
       body: data
     });
