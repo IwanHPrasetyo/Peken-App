@@ -13,7 +13,7 @@ class Login extends Component {
     event.preventDefault();
     const data = new FormData(event.target);
     axios
-      .post("http://3.80.248.213:5000/users/login", data)
+      .post("https://pekenbackend.herokuapp.com/users/login", data)
 
       .then(res => {
         //console.log(res.data);
@@ -29,7 +29,6 @@ class Login extends Component {
         }
       })
       .catch(err => {
-        console.log(err);
         alert("Error Loading in please try again");
       });
   };
