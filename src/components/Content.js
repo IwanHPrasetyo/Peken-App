@@ -70,7 +70,7 @@ class Content extends Component {
   async getAll() {
     const fetch = await getAll(this.state.limit);
     this.props.dispatch(fetch);
-    // console.log(this.props.products.productsList);
+     console.log(this.props.products.productsList);
     this.setState({
       data: this.props.products.productsList,
       pages: this.props.products.pages
